@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-    [SerializeField] Transform _followTarget;
-    [SerializeField] Vector2 _parallaxEffectMultiplier;
+    [SerializeField] private Transform _followTarget;
+    [SerializeField] private Vector2 _parallaxEffectMultiplier;
 
-    Vector3 _previousPosition;
-    float _textureUnitSize;
-    
-    void Start()
+    private Vector3 _previousPosition;
+    private float _textureUnitSize;
+
+    private void Start()
     {
         _followTarget = Camera.main.transform;
         _previousPosition = _followTarget.position;
@@ -19,13 +19,13 @@ public class Parallax : MonoBehaviour
         _textureUnitSize = texture.width / sprite.pixelsPerUnit;
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
         ParallaxEffect();
         RepeatableParallax(_textureUnitSize, 0, 1);
     }
 
-    void ParallaxEffect()
+    private void ParallaxEffect()
     {
         var delta = _followTarget.position - _previousPosition;
 
@@ -33,7 +33,7 @@ public class Parallax : MonoBehaviour
         _previousPosition = _followTarget.position;
     }
     //int coordinate 1,2: x - 0, y - 1
-    void RepeatableParallax(float textureUnitSize, int coordinate1, int coordinate2)
+    private void RepeatableParallax(float textureUnitSize, int coordinate1, int coordinate2)
     {
         if (Mathf.Abs(_followTarget.position[coordinate1] - transform.position[coordinate1]) >= textureUnitSize)
         {

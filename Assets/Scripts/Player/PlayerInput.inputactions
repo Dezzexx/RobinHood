@@ -15,10 +15,10 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
-                    "type": "Value",
+                    "name": "Shoot",
+                    "type": "Button",
                     "id": "a9e5e705-01ab-40cc-be56-b6f933a5455e",
-                    "expectedControlType": "Dpad",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -28,11 +28,11 @@
                 {
                     "name": "",
                     "id": "9e10e1a0-9342-4454-bfb6-93d8581e1b8f",
-                    "path": "<Gamepad>/dpad",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Robin Hood",
-                    "action": "Jump",
+                    "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
