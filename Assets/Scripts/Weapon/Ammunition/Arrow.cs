@@ -25,6 +25,8 @@ public abstract class Arrow : MonoBehaviour
         _pool = transform.parent.GetComponent<Pooler>();
     }
 
+    protected abstract void DamageDealing();
+
     private IEnumerator DestroyArrow()
     {
         yield return new WaitForSeconds(3f);
@@ -53,6 +55,4 @@ public abstract class Arrow : MonoBehaviour
         _rb.velocity = Vector2.zero;
         _rb.isKinematic = true;
     }
-
-    protected abstract void DamageDealing();
 }

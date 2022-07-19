@@ -44,6 +44,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ShootDirection"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""eea0a07a-bd7c-42a1-a94b-e5ffc908ad1f"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +77,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b16d97de-fbc1-4242-a9d0-ab0d378f2534"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Robin Hood"",
+                    ""action"": ""ShootDirection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -90,6 +110,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_PlayerAction = asset.FindActionMap("PlayerAction", throwIfNotFound: true);
         m_PlayerAction_Move = m_PlayerAction.FindAction("Move", throwIfNotFound: true);
         m_PlayerAction_Shoot = m_PlayerAction.FindAction("Shoot", throwIfNotFound: true);
+        m_PlayerAction_ShootDirection = m_PlayerAction.FindAction("ShootDirection", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -151,12 +172,14 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private IPlayerActionActions m_PlayerActionActionsCallbackInterface;
     private readonly InputAction m_PlayerAction_Move;
     private readonly InputAction m_PlayerAction_Shoot;
+    private readonly InputAction m_PlayerAction_ShootDirection;
     public struct PlayerActionActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerActionActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_PlayerAction_Move;
         public InputAction @Shoot => m_Wrapper.m_PlayerAction_Shoot;
+        public InputAction @ShootDirection => m_Wrapper.m_PlayerAction_ShootDirection;
         public InputActionMap Get() { return m_Wrapper.m_PlayerAction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -172,6 +195,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Shoot.started -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnShoot;
+                @ShootDirection.started -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnShootDirection;
+                @ShootDirection.performed -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnShootDirection;
+                @ShootDirection.canceled -= m_Wrapper.m_PlayerActionActionsCallbackInterface.OnShootDirection;
             }
             m_Wrapper.m_PlayerActionActionsCallbackInterface = instance;
             if (instance != null)
@@ -182,6 +208,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @ShootDirection.started += instance.OnShootDirection;
+                @ShootDirection.performed += instance.OnShootDirection;
+                @ShootDirection.canceled += instance.OnShootDirection;
             }
         }
     }
@@ -199,5 +228,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnShootDirection(InputAction.CallbackContext context);
     }
 }
