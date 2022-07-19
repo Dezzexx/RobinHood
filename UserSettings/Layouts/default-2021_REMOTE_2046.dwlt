@@ -98,7 +98,7 @@ MonoBehaviour:
   m_MaxSize: {x: 10001, y: 10021}
   m_ActualView: {fileID: 16}
   m_Panes:
-  - {fileID: 15}
+  - {fileID: 16}
   m_Selected: 0
   m_LastSelected: 0
 --- !u!114 &5
@@ -1029,18 +1029,18 @@ MonoBehaviour:
       m_ExpandedIDs: 0afbffffec6500000a660000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Main Menu
-        m_OriginalName: Main Menu
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -8328
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 2}
       m_SearchString: 
