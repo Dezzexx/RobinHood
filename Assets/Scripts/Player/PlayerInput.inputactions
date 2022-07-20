@@ -22,15 +22,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "ShootDirection",
-                    "type": "PassThrough",
-                    "id": "eea0a07a-bd7c-42a1-a94b-e5ffc908ad1f",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -53,17 +44,6 @@
                     "processors": "",
                     "groups": "Robin Hood",
                     "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b16d97de-fbc1-4242-a9d0-ab0d378f2534",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Robin Hood",
-                    "action": "ShootDirection",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

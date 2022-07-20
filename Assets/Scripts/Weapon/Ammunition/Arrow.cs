@@ -8,7 +8,7 @@ public abstract class Arrow : MonoBehaviour
 {
     private Rigidbody2D _rb;
     private Pooler _pool;
-    private bool _hasHit = false;
+    private bool _isNotHasHit = true;
 
     private void OnEnable()
     {
@@ -42,7 +42,7 @@ public abstract class Arrow : MonoBehaviour
     //check
     protected void ArrowFall()
     {
-        if (_hasHit == false)
+        if (_isNotHasHit)
         {
             float angle = Mathf.Atan2(_rb.velocity.y, _rb.velocity.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -51,7 +51,8 @@ public abstract class Arrow : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        _hasHit = true;
+        // add off "isTrigger" colision when hasHit.
+        _isNotHasHit = false;
         _rb.velocity = Vector2.zero;
         _rb.isKinematic = true;
     }

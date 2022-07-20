@@ -1,32 +1,22 @@
 using UnityEngine;
 using System.Collections;
 
-public class Bow : MonoBehaviour
+public abstract class Bow : MonoBehaviour
 {
-    [SerializeField] private float _tensionForce;
-    [SerializeField] private Transform _shootPoint;
-    [SerializeField] private Pooler _arrowPool;
+    [SerializeField] protected private float _tensionForce;
+    [SerializeField] protected private Transform _shootPoint;
+    [SerializeField] protected private Pooler _arrowPool;
 
-    private PlayerInput _playerInput;
+    protected bool _canShoot = true;
 
-    private bool _canShoot = true;
 
-    private void Awake()
-    {
-        _playerInput = new PlayerInput();
-    }
-
-    private void OnEnable()
-    {
-        _playerInput.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _playerInput.Disable();
-    }
-
-    public void Shoot()
+    /// <summary>
+    /// direction - direction for shooting
+    /// "1" - transform.right
+    /// "-1" - transform.left.
+    /// </summary>
+    /// <param name="direction"></param>
+    public virtual void Shoot(int direction)
     {
         if (!_canShoot) return;
 
@@ -34,18 +24,19 @@ public class Bow : MonoBehaviour
         arrow.transform.position = _shootPoint.position;
         arrow.transform.rotation = _shootPoint.rotation;
         
+        transform.right *= direction;
         arrow.SetActive(true);
         arrow.GetComponent<Rigidbody2D>().velocity = transform.right * _tensionForce;
-        StartCoroutine(Reload());
+        StartCoroutine(Reload(1f));
     }
 
     /// <summary>
     /// Timer for Reload.
     /// </summary>
-    private IEnumerator Reload()
+    protected private IEnumerator Reload(float timeInSeconds)
     {
         _canShoot = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(timeInSeconds);
         _canShoot = true;
     }
 }

@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [SerializeField] private float _playerSpeed = 2.0f;
-    [SerializeField] private Bow _bow;
+    [SerializeField] private PlayerWeapon _playerWeapon;
 
     private PlayerInput _playerInput;
 
@@ -36,6 +36,11 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerShoot()
     {
-        if (_playerInput.PlayerAction.Shoot.triggered) _bow.Shoot();
+        if (_playerInput.PlayerAction.Shoot.triggered) _playerWeapon.Shoot(1);
+    }
+
+    public Vector2 GetPlayerPositon()
+    {
+        return new Vector2(transform.position.x, transform.position.y);
     }
 }
