@@ -9,14 +9,7 @@ public abstract class Bow : MonoBehaviour
 
     protected bool _canShoot = true;
 
-
-    /// <summary>
-    /// direction - direction for shooting
-    /// "1" - transform.right
-    /// "-1" - transform.left.
-    /// </summary>
-    /// <param name="direction"></param>
-    public virtual void Shoot(int direction)
+    public virtual void Shoot()
     {
         if (!_canShoot) return;
 
@@ -24,7 +17,6 @@ public abstract class Bow : MonoBehaviour
         arrow.transform.position = _shootPoint.position;
         arrow.transform.rotation = _shootPoint.rotation;
         
-        transform.right *= direction;
         arrow.SetActive(true);
         arrow.GetComponent<Rigidbody2D>().velocity = transform.right * _tensionForce;
         StartCoroutine(Reload(1f));

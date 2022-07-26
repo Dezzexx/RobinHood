@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class EnemyWeapon : Bow
 {
-    public override void Shoot(int direction)
+    public override void Shoot()
     {
-        base.Shoot(direction);
+        base.Shoot();
         Reload(3f);
     }
 }

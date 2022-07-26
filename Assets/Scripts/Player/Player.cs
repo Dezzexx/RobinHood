@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
 
     private void PlayerShoot()
     {
-        if (_playerInput.PlayerAction.Shoot.triggered) _playerWeapon.Shoot(1);
+        if (_playerInput.PlayerAction.Shoot.triggered) _playerWeapon.Shoot();
     }
 
     public Vector2 GetPlayerPositon()

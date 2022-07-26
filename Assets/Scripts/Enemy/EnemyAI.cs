@@ -15,6 +15,6 @@ public class EnemyAI : MonoBehaviour
         Vector2 currentPosition = transform.position;
         float attackRange = 3f;
 
-        if (Vector2.Distance(currentPosition, _player.GetPlayerPositon()) < attackRange) _enemyWeapon.Shoot(-1);
+        if (Vector2.Distance(currentPosition, _player.GetPlayerPositon()) < attackRange) _enemyWeapon.Shoot();
     }
 }

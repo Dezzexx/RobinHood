@@ -1,8 +1,5 @@
 using System.Collections;
-using Unity.VisualScripting;
-using UnityEditor.Callbacks;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public abstract class Arrow : MonoBehaviour
 {
@@ -25,7 +22,7 @@ public abstract class Arrow : MonoBehaviour
         _pool = transform.parent.GetComponent<Pooler>();
     }
 
-    protected abstract void DamageDealing();
+    protected abstract void DamageDealing(int damage);
 
     private IEnumerator DestroyArrow()
     {
@@ -39,7 +36,6 @@ public abstract class Arrow : MonoBehaviour
         ArrowFall();
     }
 
-    //check
     protected void ArrowFall()
     {
         if (_isNotHasHit)
@@ -51,9 +47,15 @@ public abstract class Arrow : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        // add off "isTrigger" colision when hasHit.
-        _isNotHasHit = false;
-        _rb.velocity = Vector2.zero;
-        _rb.isKinematic = true;
+        if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Player"))
+        {
+            _pool.ReturnObject(gameObject);
+        }
+        else
+        {
+            _isNotHasHit = false;
+            _rb.velocity = Vector2.zero;
+            _rb.isKinematic = true;
+        }
     }
 }
