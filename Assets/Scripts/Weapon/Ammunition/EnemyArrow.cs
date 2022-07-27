@@ -1,9 +1,26 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyArrow : Arrow
 {
-    protected override void DamageDealing(int damage)
+    [SerializeField] int _damage;
+
+    private void OnEnable()
     {
-        throw new System.NotImplementedException();
+        StartCoroutine(DestroyArrow());
+    }
+
+    private IEnumerator DestroyArrow()
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Events.SendPlayerTakeDamage(_damage);
+        }
     }
 }

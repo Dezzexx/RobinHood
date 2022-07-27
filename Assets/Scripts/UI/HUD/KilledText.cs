@@ -7,12 +7,12 @@ public class KilledText : MonoBehaviour
 
     private void Awake()
     {
-        GlobalEventManager.OnEnemyKilled.AddListener(EnemyKilled);
+        GlobalEvents.OnEnemyKilled.AddListener(EnemyKilled);
     }
 
     private void OnDestroy()
     {
-        GlobalEventManager.OnEnemyKilled.RemoveListener(EnemyKilled);
+        GlobalEvents.OnEnemyKilled.RemoveListener(EnemyKilled);
     }
 
     private void EnemyKilled()

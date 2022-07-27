@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GlobalEventManager : MonoBehaviour
+public class GlobalEvents : MonoBehaviour
 {
     public static UnityEvent OnEnemyKilled = new();
 
@@ -10,3 +10,4 @@ public class GlobalEventManager : MonoBehaviour
         OnEnemyKilled.Invoke();
     }
 }
+

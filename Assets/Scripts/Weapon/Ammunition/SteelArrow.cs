@@ -1,18 +1,26 @@
+using System.Collections;
 using UnityEngine;
 
 public class SteelArrow : Arrow
 {
-    protected override void DamageDealing(int damage)
+    [SerializeField] int _damage;
+
+    private void OnEnable()
     {
-        throw new System.NotImplementedException();
+        StartCoroutine(DestroyArrow());
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private IEnumerator DestroyArrow()
+    {
+        yield return new WaitForSeconds(1f);
+        GameManager.Instance._arrowPlayerPooler.ReturnObject(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            GlobalEventManager.SendEnemyKilled();
-            Destroy(other.gameObject);
+            Events.SendEnemyTakeDamage(_damage);
         }
     }
 }
