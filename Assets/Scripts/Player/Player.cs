@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerWeapon _playerWeapon;
     [SerializeField] private Health _playerHealth;
     [SerializeField] private Animator _animator;
- 
+
     [SerializeField] private float _playerSpeed = 2.0f;
     [SerializeField] private int _maxHealth;
     [SerializeField] private float _timeForReloading;
@@ -49,7 +49,6 @@ public class Player : MonoBehaviour
             Movement();
             PlayerShoot();
         }
-        Death();
     }
 
     private void Movement()
@@ -86,15 +85,18 @@ public class Player : MonoBehaviour
         _currentHealth -= damage;
         _playerHealth.SetHealth(_currentHealth);
         StartCoroutine(HasHit());
+
+        if (_currentHealth <= 0)
+        {
+            Death();
+        }
     }
 
     private void Death()
     {
-        if (_currentHealth <= 0)
-        {
-            _isAlive = false;
-            _animator.SetBool("isDeath", true);
-        }
+        _isAlive = false;
+        _animator.SetBool("isDeath", true);
+        GlobalEvents.SetGameOver();
     }
 
     private IEnumerator HasHit()

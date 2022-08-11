@@ -18,7 +18,7 @@ public class EnemyArrow : Arrow
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.TryGetComponent(out Player player))
         {
             Events.SendPlayerTakeDamage(_damage);
         }

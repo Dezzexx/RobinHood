@@ -15,16 +15,6 @@ public class EnemyAI : MonoBehaviour
 
     private int _currentHealth;
 
-    private void Awake()
-    {
-        Events.OnEnemyTakeDamage.AddListener(DamageTaken);
-    }
-
-    private void OnDestroy()
-    {
-        Events.OnEnemyTakeDamage.RemoveListener(DamageTaken);
-    }
-
     private void Start()
     {
         _currentHealth = _maxHealth;
@@ -37,14 +27,27 @@ public class EnemyAI : MonoBehaviour
         {
             EnemyShoot();
         }
-        Death();
+    }
+
+    public void DamageTaken(int damage)
+    {
+        _currentHealth -= damage;
+        _enemyHealth.SetHealth(_currentHealth);
+        StartCoroutine(HasHit());
+
+        if (_currentHealth <= 0)
+        {
+            Death();
+        }
     }
 
     private void EnemyShoot()
     {
         Vector2 currentPosition = transform.position;
+        var currentPlayerPosition = GameManager.Instance.player.GetPlayerPositon();
+        var gameOver = GameManager.Instance.GameOverFlag;
 
-        if (Vector2.Distance(currentPosition, GameManager.Instance.player.GetPlayerPositon()) < _attackRange)
+        if ((Vector2.Distance(currentPosition, currentPlayerPosition) < _attackRange) && !gameOver)
         {
             _enemyWeapon.Shoot(_timeForReloading);
             _animator.SetBool("isAttack", true);
@@ -52,21 +55,11 @@ public class EnemyAI : MonoBehaviour
         else _animator.SetBool("isAttack", false);
     }
 
-    private void DamageTaken(int damage)
-    {
-        _currentHealth -= damage;
-        _enemyHealth.SetHealth(_currentHealth);
-        StartCoroutine(HasHit());
-    }
-
     private void Death()
     {
-        if (_currentHealth <= 0)
-        {
-            _isAlive = false;
-            GlobalEvents.SendEnemyKilled();
-            Destroy(gameObject);
-        }
+        _isAlive = false;
+        GlobalEvents.SendEnemyKilled();
+        Destroy(gameObject);
     }
 
     private IEnumerator HasHit()

@@ -18,9 +18,9 @@ public class SteelArrow : Arrow
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.TryGetComponent(out EnemyAI enemy))
         {
-            Events.SendEnemyTakeDamage(_damage);
+            enemy.DamageTaken(_damage);
         }
     }
 }
